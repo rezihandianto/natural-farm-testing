@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     //Customer
     Route::resource('/customers', CustomerController::class);
+    Route::get('/customers/search', [CustomerController::class, 'search']);
 });
 
 require __DIR__ . '/auth.php';

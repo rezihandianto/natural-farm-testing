@@ -20,7 +20,12 @@
                         </div>
                     @endif
                     <div class="flex items-center justify-between mb-5">
-                        <x-text-input id="search" name="search" class="block mt-1" placeholder="Search" />
+                        <form method="GET" action="{{ route('customers.index') }}">
+                            <div class="flex justify-between">
+                                <x-text-input type="search" id="search" name="search" class="block mt-1 mx-2"
+                                    placeholder="Search" />
+                            </div>
+                        </form>
                         <a href="{{ route('customers.create') }}"
                             class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Create</a>
                     </div>
@@ -59,11 +64,19 @@
                                     <td>{{ $item->gender }}</td>
                                     <td>{{ $item->phone_number }}</td>
                                     <td>{{ $item->birth_date }}</td>
-                                    <th>
-                                        <button class="btn btn-ghost btn-xs">details</button>
-                                        <button class="btn btn-ghost btn-xs">edit</button>
-                                        <button class="btn btn-ghost btn-xs">delete</button>
-                                    </th>
+                                    <td>
+                                        <a href="{{ route('customers.show', $item->id) }}"
+                                            class="btn btn-ghost btn-xs">details</a>
+                                        <a href="{{ url('customers/' . $item->id . '/edit') }}"
+                                            class="btn btn-ghost btn-xs">edit</a>
+                                        <form method="POST" onsubmit="return confirm('Are you sure?');"
+                                            action="{{ route('customers.destroy', $item->id) }}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            @csrf
+                                            <input type="submit" class="btn btn-ghost btn-xs" value="Delete">
+                                        </form>
+
+                                    </td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -75,9 +88,9 @@
                         </tbody>
 
                     </table>
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         {{ $customers->links() }}
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
