@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BilanganBulatController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
     //Customer
     Route::resource('/customers', CustomerController::class);
-    Route::get('/customers/search', [CustomerController::class, 'search']);
+    Route::get('/bilangan-bulat', [BilanganBulatController::class, 'index'])->name('bilangan-bulat');
 });
 
 require __DIR__ . '/auth.php';
